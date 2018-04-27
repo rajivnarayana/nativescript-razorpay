@@ -1,0 +1,6 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" class="page"
+  xmlns:ui="nativescript-razorpay">
+  <StackLayout class="p-20">
+    <Button text="Checkout" class="btn btn-primary" tap="onCheckoutButtonTapped" />
+  </StackLayout>
+</Page>
