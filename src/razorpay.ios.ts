@@ -43,13 +43,18 @@ export class RazorpayCheckout extends CheckoutCommon {
 
     done(paymentId) {
         this._resolve(paymentId);
+        this._resolve = this._reject = null;
     }
-
+    
     error(code, response) {
         this._reject(new Error("Failed with error code: "+code));
+        this._resolve = this._reject = null;
     }
 
     open(options : any) : Promise<string> {
+        if (this._reject != null) {
+            return Promise.reject(new Error("You are already in a checkout session from Razorpay"));
+        }
         return new Promise<string>((resolve, reject) => {
             this._resolve = resolve;
             this._reject = reject;
