@@ -6,14 +6,14 @@ A nativescript wrapper around iOS and Android Razorpay plugins. Razorpay is a pa
 
 Open terminal and type the following command at the root of your project folder.
 
-```javascript
+```shell
 tns plugin add nativescript-razorpay
 ```
 
 ## Usage 
 
-	```javascript
-    export function onCheckoutButtonTapped(args : any) {
+```javascript
+export function onCheckoutButtonTapped(args : any) {
     new RazorpayCheckout("rzp_test_some_id").open({
         "amount" : "1000", //In paise 
         "description" : "Some Items from Swiggy",
@@ -29,13 +29,10 @@ tns plugin add nativescript-razorpay
         console.error(error);
     })
 }
-
-    ```)
+```
 
 ## API
 
-Describe your plugin methods and properties here. See [nativescript-feedback](https://github.com/EddyVerbruggen/nativescript-feedback) for example.
-    
 | Property | Default | Description |
 | --- | --- | --- |
 | open | none | Accepts options among others, should contain "amount" |

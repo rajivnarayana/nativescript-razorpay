@@ -1,7 +1,7 @@
 {
     "name": "nativescript-razorpay",
-    "version": "1.0.2",
-    "description": "Your awesome NativeScript plugin.",
+    "version": "1.0.3",
+    "description": "A {N} plugin that wraps around native iOS and Android plugins",
     "main": "razorpay",
     "typings": "index.d.ts",
     "nativescript": {
@@ -33,17 +33,17 @@
         "NativeScript",
         "JavaScript",
         "Android",
-        "iOS"
+        "iOS",
+        "Razorpay"
     ],
     "author": {
-        "name": "Your Name",
-        "email": "youremail@yourdomain.com"
+        "name": "Rajiv Narayana"
     },
     "bugs": {
-        "url": "https://github.com/Rajiv Singaseni/nativescript-razorpay/issues"
+        "url": "https://github.com/rajivnarayana/nativescript-razorpay/issues"
     },
     "license": "Apache-2.0",
-    "homepage": "https://github.com/Rajiv Singaseni/nativescript-razorpay",
+    "homepage": "https://github.com/rajivnarayana/nativescript-razorpay",
     "readmeFilename": "README.md",
     "devDependencies": {
         "tns-core-modules": "^4.0.0",
