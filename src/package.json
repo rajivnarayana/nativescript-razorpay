@@ -1,6 +1,6 @@
 {
     "name": "nativescript-razorpay",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "description": "A {N} plugin that wraps around native iOS and Android plugins",
     "main": "razorpay",
     "typings": "index.d.ts",

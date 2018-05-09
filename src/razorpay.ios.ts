@@ -41,6 +41,10 @@ export class RazorpayCheckout extends CheckoutCommon {
         return topmost().currentPage;
     }
 
+    public preload(): void {
+        //No Op on iOS.
+    }
+
     done(paymentId) {
         this._resolve(paymentId);
         this._resolve = this._reject = null;
