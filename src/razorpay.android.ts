@@ -86,6 +86,16 @@ export class RazorpayCheckout extends CheckoutCommon {
                 intent.putExtra("OPTIONS", JSON.stringify(options));
                 // intent.putExtra("FRAMEWORK", "react_native");
                 native.foregroundActivity.startActivityForResult(intent, RZP_REQUEST_CODE);
+
+                //We need to unregisterActivityLifecycleCallbacks as tns is not able to generate bindings for CheckoutActivity.
+                //It causes onActivityCreated callback to crash when trying to set theme.
+                // activity.getPackageManager().getActivityInfo
+                const lifecycleCallbacks = (native as any).callbacks.lifecycleCallbacks;
+                native.nativeApp.unregisterActivityLifecycleCallbacks(lifecycleCallbacks);
+                //reregister callbacks after a short timeout.
+                setTimeout(_ => {
+                    native.nativeApp.registerActivityLifecycleCallbacks(lifecycleCallbacks);
+                }, 1000);
             }  catch (e) {
                 native.off(AndroidApplication.activityResultEvent, onResult, this);
             }
