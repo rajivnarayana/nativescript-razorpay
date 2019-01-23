@@ -30,7 +30,7 @@ export function navigatingTo(args: EventData) {
    razorPayPlugin.preload();
 }
 
-const razorPayPlugin = new RazorpayCheckout("rzp_test_sp7C1WTR5qgZ8z");
+const razorPayPlugin = new RazorpayCheckout("rzp_test_XXXXXXXXX");
 
 export function onCheckoutButtonTapped(args : any) {
     razorPayPlugin.open({

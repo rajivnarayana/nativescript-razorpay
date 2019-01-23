@@ -87,18 +87,49 @@ export class RazorpayCheckout extends CheckoutCommon {
                 // intent.putExtra("FRAMEWORK", "react_native");
                 native.foregroundActivity.startActivityForResult(intent, RZP_REQUEST_CODE);
 
-                //We need to unregisterActivityLifecycleCallbacks as tns is not able to generate bindings for CheckoutActivity.
+                //We need to `unregisterActivityLifecycleCallbacks` as tns is not able to generate bindings for CheckoutActivity.
                 //It causes onActivityCreated callback to crash when trying to set theme.
                 // activity.getPackageManager().getActivityInfo
+
                 const lifecycleCallbacks = (native as any).callbacks.lifecycleCallbacks;
                 native.nativeApp.unregisterActivityLifecycleCallbacks(lifecycleCallbacks);
-                //reregister callbacks after a short timeout.
-                setTimeout(_ => {
-                    native.nativeApp.registerActivityLifecycleCallbacks(lifecycleCallbacks);
-                }, 1000);
+                
+                //Create newLifecycleCallbacks to listen to created event and swap callbacks.
+                const newLifecycleCallbacks = new android.app.Application.ActivityLifecycleCallbacks({
+                    onActivityCreated: function (activity: android.support.v7.app.AppCompatActivity, savedInstanceState: android.os.Bundle) {
+                        // console.log("activity onActivityCreated");
+                        native.nativeApp.unregisterActivityLifecycleCallbacks(newLifecycleCallbacks);
+                        native.nativeApp.registerActivityLifecycleCallbacks(lifecycleCallbacks);
+                    },
+            
+                    onActivityPaused: function (activity: android.support.v7.app.AppCompatActivity) {
+                        if ((<any>activity).isNativeScriptActivity) {
+                            // console.log("NativeScriptActivity onActivityPaused");
+                            lifecycleCallbacks.onActivityPaused(activity);
+                        }
+                    },
+                    
+                    onActivityDestroyed: function (activity: android.support.v7.app.AppCompatActivity) {
+                    },
+
+                    onActivityResumed: function (activity: android.support.v7.app.AppCompatActivity) {
+                    },
+
+                    onActivitySaveInstanceState: function (activity: android.support.v7.app.AppCompatActivity, outState: android.os.Bundle) {
+                    },
+
+                    onActivityStarted: function (activity: android.support.v7.app.AppCompatActivity) {
+                    },
+
+                    onActivityStopped: function (activity: android.support.v7.app.AppCompatActivity) {
+                    }
+                });            
+                native.nativeApp.registerActivityLifecycleCallbacks(newLifecycleCallbacks);
             }  catch (e) {
                 native.off(AndroidApplication.activityResultEvent, onResult, this);
             }
         });
     }
 }
+
+
